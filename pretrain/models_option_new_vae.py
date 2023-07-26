@@ -595,7 +595,7 @@ class ConditionPolicy(NNBase):
         return value, logits, rnn_hxs
 
     def _env_step(self, states, actions, step):
-        states = states.detach().cpu().numpy().astype(np.bool_)
+        states = states.detach().cpu().numpy().astype(bool_)
         # C x H x W to H x W x C
         states = np.moveaxis(states,[-1,-2,-3], [-2,-3,-1])
         assert states.shape[-1] == self.state_shape[0]
