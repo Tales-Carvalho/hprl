@@ -151,7 +151,15 @@ class PPOModel(object):
         self.episode_len            = deque(maxlen=10)
         self.episode_primitive_len  = deque(maxlen=10)
         self.episode_s_h            = deque(maxlen=10)
-    
+
+        self.outfile = os.path.join('output', 'hprl_ppo', config['env_task'], f'seed_{config["seed"]}.csv')
+        os.makedirs(os.path.dirname(self.outfile), exist_ok=True)
+        with open(self.outfile, 'w') as f:
+            f.write('num_steps,num_evaluations,best_reward,best_program\n')
+            
+        self.best_reward = -np.inf
+        self.num_evaluations = 0
+
     def save_gif(self, path, s_h):
         # create video
         frames = []
@@ -190,7 +198,12 @@ class PPOModel(object):
     
                 # Obser reward and next obs
                 obs, reward, done, infos = self.envs.step(pred_programs)
-    
+                self.num_evaluations += 1
+                if torch.mean(reward) > self.best_reward:
+                    with open(self.outfile, 'a') as f:
+                        f.write(f'{self.num_steps},{self.num_evaluations},{torch.mean(reward)},{infos[torch.argmax(reward)]["exec_data"]["program_str_history"]}\n')
+                    self.best_reward = torch.mean(reward)
+                
                 for info in infos:
                     if 'episode' in info.keys():
                         # TODO: check on how info['episode']['r'] is added
@@ -199,6 +212,7 @@ class PPOModel(object):
                         self.episode_len.append(info['exec_data']['program_step'])
                         self.episode_primitive_len.append(info['exec_data']['primitive_episode_len'])
                         self.episode_s_h.append(info['exec_data']['s_image_h_list'])
+                        
 
                 # If done then clean the history of observations.
                 masks = torch.FloatTensor(
