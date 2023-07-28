@@ -198,11 +198,7 @@ class PPOModel(object):
     
                 # Obser reward and next obs
                 obs, reward, done, infos = self.envs.step(pred_programs)
-                self.num_evaluations += 1
-                if torch.mean(reward) > self.best_reward:
-                    with open(self.outfile, 'a') as f:
-                        f.write(f'{self.num_steps},{self.num_evaluations},{torch.mean(reward)},{infos[torch.argmax(reward)]["exec_data"]["program_str_history"]}\n')
-                    self.best_reward = torch.mean(reward)
+                self.num_evaluations += self.num_processes
                 
                 for info in infos:
                     if 'episode' in info.keys():
@@ -212,6 +208,10 @@ class PPOModel(object):
                         self.episode_len.append(info['exec_data']['program_step'])
                         self.episode_primitive_len.append(info['exec_data']['primitive_episode_len'])
                         self.episode_s_h.append(info['exec_data']['s_image_h_list'])
+                        if info['episode']['r'] > self.best_reward:
+                            with open(self.outfile, 'a') as f:
+                                f.write(f'{step + j * self.num_steps},{self.num_evaluations},{info["episode"]["r"]},{info["exec_data"]["program_str_history"]}\n')
+                            self.best_reward = info['episode']['r']
                         
 
                 # If done then clean the history of observations.
