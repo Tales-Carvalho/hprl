@@ -9,19 +9,19 @@ import numpy as np
 import torch
 from gym.spaces.box import Box
 
-from baselines import bench
-from baselines.common.atari_wrappers import make_atari, wrap_deepmind
-from baselines.common.vec_env import VecEnvWrapper
-from baselines.common.vec_env.dummy_vec_env import DummyVecEnv
-from baselines.common.vec_env.shmem_vec_env import ShmemVecEnv
-from baselines.common.vec_env.vec_normalize import \
+from .baselines import bench
+from .baselines.common.atari_wrappers import make_atari, wrap_deepmind
+from .baselines.common.vec_env import VecEnvWrapper
+from .baselines.common.vec_env.dummy_vec_env import DummyVecEnv
+from .baselines.common.vec_env.shmem_vec_env import ShmemVecEnv
+from .baselines.common.vec_env.vec_normalize import \
     VecNormalize as VecNormalize_
 
 
-from program_env_new_vae_v2 import ProgramEnv1_new_vae_v2
-from program_env_option_new_vae_v2_key2door_fixed import ProgramEnv_option_new_vae_v2 as ProgramEnv_option_new_vae_v2_key2door_fixed
+from ..prl_gym.program_env_new_vae_v2 import ProgramEnv1_new_vae_v2
+from ..prl_gym.program_env_option_new_vae_v2_key2door_fixed import ProgramEnv_option_new_vae_v2 as ProgramEnv_option_new_vae_v2_key2door_fixed
 
-from condition_env import ConditionEnvGym
+from ..prl_gym.condition_env import ConditionEnvGym
 
 try:
     import dm_control2gym

@@ -2,8 +2,8 @@ import time
 import numpy as np
 import gym
 from gym import spaces
-from exec_env_option_new_vae_v2_backup_key2door_fixed import ExecEnv1, ExecEnv_option
-from karel_env.dsl.dsl_parse import parse
+from .exec_env_option_new_vae_v2_backup_key2door_fixed import ExecEnv1, ExecEnv_option
+from ..karel_env.dsl.dsl_parse import parse
 
 
 class ProgramEnv_option_new_vae_v2(gym.Env):

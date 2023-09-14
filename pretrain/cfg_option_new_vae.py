@@ -142,7 +142,7 @@ config = {
             'executable': {
                 'name': 'karel',
                 'task_definition': 'program',       # choices=['program', 'custom_reward']
-                'task_file': 'tasks/test1.txt',  # choose from these tokens to write a space separated VALID program
+                'task_file': 'hprl/tasks/test1.txt',  # choose from these tokens to write a space separated VALID program
                 # for ground_truth task: ['DEF', 'run', 'm(', 'm)', 'move', 'turnRight',
                 # 'turnLeft', 'pickMarker', 'putMarker', 'r(', 'r)', 'R=0', 'R=1', 'R=2',
                 # 'R=3', 'R=4', 'R=5', 'R=6', 'R=7', 'R=8', 'R=9', 'R=10', 'R=11', 'R=12',

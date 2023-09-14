@@ -10,11 +10,11 @@ import random
 import pickle
 import numpy as np
 
-from dsl import get_DSL_option_v2
-from dsl.dsl_parse_and_trace import parse_and_trace
-from util import log
+from .dsl import get_DSL_option_v2
+from .dsl.dsl_parse_and_trace import parse_and_trace
+from .util import log
 
-import karel_option
+from . import karel_option
 
 
 class KarelStateGenerator(object):

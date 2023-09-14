@@ -9,13 +9,13 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 from torch.autograd import Variable
 import gym
 
-from karel_env.tool.syntax_checker import PySyntaxChecker
+from ..karel_env.tool.syntax_checker import PySyntaxChecker
 #from karel_env.karel_supervised import Karel_world_supervised
-from karel_env.karel_supervised_new_vae import Karel_world_supervised
+from ..karel_env.karel_supervised_new_vae import Karel_world_supervised
 
-from rl.distributions import FixedCategorical, FixedNormal
-from rl.model_option import NNBase
-from rl.utils import masked_mean, masked_sum, create_hook, init
+from ..rl.distributions import FixedCategorical, FixedNormal
+from ..rl.model_option import NNBase
+from ..rl.utils import masked_mean, masked_sum, create_hook, init
 
 
 class Flatten(nn.Module):
